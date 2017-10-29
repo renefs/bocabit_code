@@ -100,3 +100,5 @@ ENV/
 # mypy
 .mypy_cache/
 .idea
+/codeproject/config.py
+/db.sqlite3
