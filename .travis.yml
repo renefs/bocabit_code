@@ -5,7 +5,7 @@ python:
 services: postgresql
 
 install:
-  - pip install -r pip-requirements.txt
+  - pip install -r requirements.txt
   - pip install coverage
   - psql -c "CREATE DATABASE bocabit_code;" -U postgres
 
