@@ -1,4 +1,6 @@
-# bocabit_code
+# Bocabit Code
+
+[![Build Status](https://travis-ci.org/renefs/bocabit_code.svg?branch=master)](https://travis-ci.org/renefs/bocabit_code)
 
 ## Requirements
 
