@@ -10,10 +10,11 @@ install:
   - psql -c "CREATE DATABASE bocabit_code;" -U postgres
 
 before_script:
+  - cd web
   - mv ./codeproject/config.sample.py ./codeproject/config.py
   - python manage.py makemigrations
   - python manage.py migrate
 
-script: coverage run manage.py test
+script: coverage run --source='.' manage.py test
 
 after_success: coverage report
