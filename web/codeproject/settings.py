@@ -27,7 +27,7 @@ SECRET_KEY = 'gj=s&5+4z3_-1l9li-d52mdybk6r)vct@!-%vzm_-fo((*er3d'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = config.ALLOWED_HOSTS
 
 
 # Application definition
