@@ -19,7 +19,7 @@ after_success:
   - tar -czf package.tgz web
   - ls -la
   - export SSHPASS=$DEPLOY_PASS
-  - sshpass -h
+  - sshpass -V
   - sshpass -e scp package.tgz $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH
   - sshpass -e ssh $DEPLOY_USER@$DEPLOY_HOST $DEPLOY_PATH/deploy.sh
 
@@ -34,3 +34,4 @@ addons:
   apt:
     packages:
       - sshpass
+  ssh_known_hosts: $DEPLOY_HOST
