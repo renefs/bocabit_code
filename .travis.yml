@@ -15,9 +15,8 @@ script:
   - coverage run --source='.' manage.py test
 after_success:
   - coverage report
-  - mkdir build
-  - cp -R * build
-  - tar -czf package.tgz build
+  - cd ..
+  - tar -czf package.tgz web
   - export SSHPASS=$DEPLOY_PASS
   - sshpass -e scp package.tgz $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH
   - sshpass -e ssh $DEPLOY_USER@$DEPLOY_HOST $DEPLOY_PATH/deploy.sh
