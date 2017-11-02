@@ -17,9 +17,10 @@ after_success:
   - coverage report
   - cd ..
   - tar -czf package.tgz web
+  - ls -la
   - export SSHPASS=$DEPLOY_PASS
-  - sshpass -v -e scp package.tgz $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH
-  - sshpass -v -e ssh $DEPLOY_USER@$DEPLOY_HOST $DEPLOY_PATH/deploy.sh
+  - sshpass -e scp package.tgz $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH
+  - sshpass -e ssh $DEPLOY_USER@$DEPLOY_HOST $DEPLOY_PATH/deploy.sh
 
 env:
   global:
