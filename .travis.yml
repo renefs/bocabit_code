@@ -1,20 +1,35 @@
 language: python
 python:
-  - "3.5"
-
+  - '3.5'
 services: postgresql
-
 install:
   - pip install -r requirements.txt
   - pip install coverage
   - psql -c "CREATE DATABASE bocabit_code;" -U postgres
-
 before_script:
   - cd web
   - mv ./codeproject/config.sample.py ./codeproject/config.py
   - python manage.py makemigrations
   - python manage.py migrate
+script:
+  - coverage run --source='.' manage.py test
+after_success:
+  - coverage report
+  - mkdir build
+  - mv * build
+  - tar -czf package.tgz build
+  - export SSHPASS=$DEPLOY_PASS
+  - sshpass -e scp package.tgz $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH
+  - sshpass -e ssh $DEPLOY_USER@$DEPLOY_HOST $DEPLOY_PATH/deploy.sh
 
-script: coverage run --source='.' manage.py test
+env:
+  global:
+  - secure: LznoIbs5g4nf7wrl3mYD5fosy01KFxIfICFhVYUUy05Y7DsJlMkc8N2ShrEd0gYXD4XGlqkR7HicO8N6Jon2XqzX8ASjnRMygINNyLoVrCuizFuyTFlg+eLUgR/ZOpC1iqTCfwwsZm2RqqOqPl4vjUClMrTYmQuepxdtDHRWq3Sd4mdxmIYWDuiudDuIPhdy6DkEnw4Ss/BwSk+VIyOrLR+0/KSDi96/ASgmE24VrahKrf6zu6+NNKIsIzXCBQCD//mmjG5lLeTxJFu9Sk5IUpdmgWu5U7Ngcn38WbN9zK7ZBdjyBCxavsvwj9mElvCP0CBq4P5T8j0vyn7LwIoWrF8r1L3qYh7wNJkq7bggM9wRMIA9ZO5Lwb1fSUxj7gcoQEfxZ/y4HWHeVU8fRymF/JtY+MQbCnu1kG0qGeS1fzKXvXx6zHVTmwyMhJ5TnkTfyhKYvsCYsuIG9sX71+vNzCAjwcVXZYDOaydkGutxdPpRAbcQ5YU9YeHZ6WlY11HpVAbugI+TXbeSugtOL9xuYA0a1CFP1SDUfmCcsDaP+O7AevO/LBLOKqS49Nc+n0T0hgYBEwmUZMtaU+rlqtVCf6NX/4HpwCVD/z5pUQGA8ypYCLFaaUAoGGh7/GtJhlVPERyrYTB2ChOt6rmNgfjPxREFCFCJAX2opQSsYZp1zHo=
+  - secure: eUl6qQ8Jg9i8DZt0gVd69WYUUxyxioz9QimjeHOuf5V8STBFgn3hIzgwuOkAUYX2/V0bTArJctLuUQrX5c8MEpDMwO2ECY+gq5oP/7F/fbERYYu7uqdo8jz5FfYibiepu6tggXmyiZGRnHrZanCY6YrWAOq+Wl3xJwEARyayTmP7f5gzTxitCH78FQNkFGWx7d5ZzaGz8PqFEuMWCoV3SAKRscWoWVSsnhwTZ04h5sVFCBv+TPNbTZXrdfP0GQxtX1fBYKukvGkU/VJepMv7DKmlfGKuOnUeZ3CMJQ0mkptkXLoMNE9/FI9AQz0F8QF5x4G+HLKk68PlNtSHzO3yvZ2B/msOICElqO8eBUQMUjIXkkY0Q6mMu7ibabC6tNWM+VXfZNXjb1kKOlBzV8u0eYU2on6H4w5JO9ahlLcFvVvTws92wqzsV2bx3GYCoOeB/t35OOCszlS71i7fHDKWHwZkiEHCWzo37lsEF1DfiB45g7TMKwje7kMqiI2EDnlhpqlULYpKdGC4KSKqUeBwOPzuKBKE9ZbtwV7o3/MX510s7d5HDfmG4/MfRMv0t+7L2v+Zd+lnNXaRmCptd6tUDwMFty2c4i2nXi4PDX9bOX/zLR6IVbqkYa6MU4x0utyQsbWqT4e3K/+SjgKxNRG29p67ZNgLhQa1TDtqIHN7HB0=
+  - secure: o02KUrm29uN35nhjRI8owG8v5p86RB0NIc0IQmwO1QRJ/D6SBoKbsg0Vc2UcgFwswAQj2czd7ye5DLzjP1ro92y2mA8+fCx8kyMj6CF3EwPWFT44UrKjo79QwoCwXFaNqeovqX1oOC1hqS8a64Pc8wZ9RFGMT4j/9HkXbNXtWCjH4P+SFJJ4tIJmMqGuCAa1mdV6HDb9pKFPr4+AJCujsBCd+KqeDzy8JwnnxVjYUBQwHdV648VVE6DTdI3i9DJ5nFRQanWo1XVTivkTo2mYf7Q13Hrs3FJqAs/QHb4heWQeRIly7dwwrCeiGKsEyBK5uJhYpOBnE62bCtvDRbJiokCOA96MF+jEnpQrqMVIfIhpkuwujCUkVkHXhy9lSqTVBI9Gm37PVEtFtv0oW7E9Q8T9qVaFqMEgqHwyXordElQrA+IwXDaOfsTTY2LqLXw8ZpP36CGPJHbmakjyHc8I22W0ejRuVoLfCu13xJWe2EEktNCojF/nxJ9ZPDDMP6VZnmBesY1uBUVgpmWRP51NlSs0EF7sdecWK1LAa2ZQj/oS7kqfDc7suwhIUf5xTBtIFVcCj1Bzk5+b3su4lx3EovzVtX0KC37KVwmZypfgCvbnOr8TricCpHZ/KVZZWoJcCh0qzXtbKmbpCadXcHw5jL/5CBHSkNkVMXlWLGO1bsg=
+  - secure: qq1JYvYq+y/hVud4RXN/VAj5+h4LCvOVukTePNhCTTo8D7HfdpYJWazsHXv4quV0QA5x5+gCalz7PBRYg0yKTjZj6KMQKPg1PBqXinWvTPBmvgUt9j8EuatW/xJXR1OapVLgXSkMQcUXkFuKbd1WNugkQ94kQDZGMRGRsuD4veKrj3G3WugSu26O3J9fzY4r6n4JZrhgOsKscJJ6P+QLrGTamD9uo6rIa+EKFz+53a5b0HnCOK3KXzmAIW29HyrJckijej49Du8A900fgah+jDEsvT8P3AyLsfBDu36bTZUSRn1qv/QNjDjZ0sgpXu4ECNgKTjtlVDwBBTImPWucTc9Kaam2CE43itCrej/p5k5gPkhk9di0TkgEEpB1nD1GCGjKSUzRYaSPIdFPXFHwVBIHRhYlpfFI9aFy5vWAJYbboRiR0ef2U2Sgic6rlgunYFERyUw4e0AzeeQT7P8UcDwsQjkAfbpXUC0p9hCWwuN23anDVkSnBNSjvLRUoDrjh6mi21sAbCEbMuM/75d0eZLuQpYWyrrERwGcforKoRn1iBn0X5fIonkJtLPAPQ00hc2YvU77EMD/6OXLqqUmoyh7E6D2fUEN9UvgQY/gjCTRu+qMGoPDw66DT+7gIvZLcgBQYevocGbTkPl9N8vPROu+PmD4QqgM23yeS/y8xWI=
 
-after_success: coverage report
+addons:
+  apt:
+    packages:
+      - sshpass
