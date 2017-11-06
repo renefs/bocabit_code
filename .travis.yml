@@ -2,14 +2,12 @@ language: python
 python:
   - '3.5'
 services: postgresql
-before_install:
-  - sudo apt-get -qq update
-  - sudo apt-get install sshpass
 install:
   - pip install -r requirements.txt
   - pip install coverage
   - psql -c "CREATE DATABASE bocabit_code;" -U postgres
 before_script:
+  - cp requirements.txt ./web
   - cd web
   - mv ./codeproject/config.sample.py ./codeproject/config.py
   - python manage.py makemigrations
@@ -34,7 +32,7 @@ env:
   - secure: qq1JYvYq+y/hVud4RXN/VAj5+h4LCvOVukTePNhCTTo8D7HfdpYJWazsHXv4quV0QA5x5+gCalz7PBRYg0yKTjZj6KMQKPg1PBqXinWvTPBmvgUt9j8EuatW/xJXR1OapVLgXSkMQcUXkFuKbd1WNugkQ94kQDZGMRGRsuD4veKrj3G3WugSu26O3J9fzY4r6n4JZrhgOsKscJJ6P+QLrGTamD9uo6rIa+EKFz+53a5b0HnCOK3KXzmAIW29HyrJckijej49Du8A900fgah+jDEsvT8P3AyLsfBDu36bTZUSRn1qv/QNjDjZ0sgpXu4ECNgKTjtlVDwBBTImPWucTc9Kaam2CE43itCrej/p5k5gPkhk9di0TkgEEpB1nD1GCGjKSUzRYaSPIdFPXFHwVBIHRhYlpfFI9aFy5vWAJYbboRiR0ef2U2Sgic6rlgunYFERyUw4e0AzeeQT7P8UcDwsQjkAfbpXUC0p9hCWwuN23anDVkSnBNSjvLRUoDrjh6mi21sAbCEbMuM/75d0eZLuQpYWyrrERwGcforKoRn1iBn0X5fIonkJtLPAPQ00hc2YvU77EMD/6OXLqqUmoyh7E6D2fUEN9UvgQY/gjCTRu+qMGoPDw66DT+7gIvZLcgBQYevocGbTkPl9N8vPROu+PmD4QqgM23yeS/y8xWI=
 
 addons:
-#  apt:
-#    packages:
-#      - sshpass
+  apt:
+    packages:
+      - sshpass
   ssh_known_hosts: $DEPLOY_HOST
