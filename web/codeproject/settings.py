@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     # 3rd party
     'django_assets',
     'formtools',
-    'social_django'
+    'social_django',
 ]
 
 AUTHENTICATION_BACKENDS = (
