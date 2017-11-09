@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Application
     'users.apps.UsersConfig',
+    'codeapp.apps.CodeappConfig',
     # 3rd party
     'django_assets',
     'formtools',
