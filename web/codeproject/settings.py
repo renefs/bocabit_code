@@ -17,7 +17,6 @@ from codeproject import config
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
@@ -28,7 +27,6 @@ SECRET_KEY = 'gj=s&5+4z3_-1l9li-d52mdybk6r)vct@!-%vzm_-fo((*er3d'
 DEBUG = config.DEBUG
 
 ALLOWED_HOSTS = config.ALLOWED_HOSTS
-
 
 # Application definition
 
@@ -102,7 +100,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'codeproject.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
@@ -112,7 +109,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -170,7 +166,6 @@ LOGGING = {
     },
 }
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
@@ -184,7 +179,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
@@ -194,3 +188,110 @@ ASSETS_ROOT = 'stocks'
 ASSETS_URL = ''
 
 AUTH_USER_MODEL = 'users.User'
+
+LANGUAGE_CHOICES = (('abap', 'ABAP'),
+                    ('actionscript', 'ActionScript'),
+                    ('ada', 'ADA'),
+                    ('apache_conf', 'Apache Conf'),
+                    ('asciidoc', 'AsciiDoc'),
+                    ('assembly_x86', 'Assembly x86'),
+                    ('autohotkey', 'AutoHotKey'),
+                    ('batchfile', 'BatchFile'),
+                    ('c9search', 'C9Search'),
+                    ('c_cpp', 'C/C++'),
+                    ('cirru', 'Cirru'),
+                    ('clojure', 'Clojure'),
+                    ('cobol', 'Cobol'),
+                    ('coffee', 'CoffeeScript'),
+                    ('coldfusion', 'ColdFusion'),
+                    ('csharp', 'C#'),
+                    ('css', 'CSS'),
+                    ('curly', 'Curly'),
+                    ('d', 'D'),
+                    ('dart', 'Dart'),
+                    ('diff', 'Diff'),
+                    ('dot', 'Dot'),
+                    ('erlang', 'Erlang'),
+                    ('ejs', 'EJS'),
+                    ('forth', 'Forth'),
+                    ('ftl', 'FreeMarker'),
+                    ('gherkin', 'Gherkin'),
+                    ('glsl', 'Glsl'),
+                    ('golang', 'Go'),
+                    ('groovy', 'Groovy'),
+                    ('haml', 'HAML'),
+                    ('handlebars', 'Handlebars'),
+                    ('haskell', 'Haskell'),
+                    ('haxe', 'haXe'),
+                    ('html', 'HTML'),
+                    ('html_ruby', 'HTML (Ruby)'),
+                    ('ini', 'INI'),
+                    ('jack', 'Jack'),
+                    ('jade', 'Jade'),
+                    ('java', 'Java'),
+                    ('javascript', 'JavaScript'),
+                    ('json', 'JSON'),
+                    ('jsoniq', 'JSONiq'),
+                    ('jsp', 'JSP'),
+                    ('jsx', 'JSX'),
+                    ('julia', 'Julia'),
+                    ('latex', 'LaTeX'),
+                    ('less', 'LESS'),
+                    ('liquid', 'Liquid'),
+                    ('lisp', 'Lisp'),
+                    ('livescript', 'LiveScript'),
+                    ('logiql', 'LogiQL'),
+                    ('lsl', 'LSL'),
+                    ('lua', 'Lua'),
+                    ('luapage', 'LuaPage'),
+                    ('lucene', 'Lucene'),
+                    ('makefile', 'Makefile'),
+                    ('matlab', 'MATLAB'),
+                    ('markdown', 'Markdown'),
+                    ('mel', 'MEL'),
+                    ('mysql', 'MySQL'),
+                    ('mushcode', 'MUSHCode'),
+                    ('nix', 'Nix'),
+                    ('objectivec', 'Objective-C'),
+                    ('ocaml', 'OCaml'),
+                    ('pascal', 'Pascal'),
+                    ('perl', 'Perl'),
+                    ('pgsql', 'pgSQL'),
+                    ('php', 'PHP'),
+                    ('powershell', 'Powershell'),
+                    ('prolog', 'Prolog'),
+                    ('properties', 'Properties'),
+                    ('protobuf', 'Protobuf'),
+                    ('python', 'Python'),
+                    ('r', 'R'),
+                    ('rdoc', 'RDoc'),
+                    ('rhtml', 'RHTML'),
+                    ('ruby', 'Ruby'),
+                    ('rust', 'Rust'),
+                    ('sass', 'SASS'),
+                    ('scad', 'SCAD'),
+                    ('scala', 'Scala'),
+                    ('smarty', 'Smarty'),
+                    ('scheme', 'Scheme'),
+                    ('scss', 'SCSS'),
+                    ('sh', 'SH'),
+                    ('sjs', 'SJS'),
+                    ('space', 'Space'),
+                    ('snippets', 'snippets'),
+                    ('soy_template', 'Soy Template'),
+                    ('sql', 'SQL'),
+                    ('stylus', 'Stylus'),
+                    ('svg', 'SVG'),
+                    ('tcl', 'Tcl'),
+                    ('tex', 'Tex'),
+                    ('text', 'Text'),
+                    ('textile', 'Textile'),
+                    ('toml', 'Toml'),
+                    ('twig', 'Twig'),
+                    ('typescript', 'Typescript'),
+                    ('vbscript', 'VBScript'),
+                    ('velocity', 'Velocity'),
+                    ('verilog', 'Verilog'),
+                    ('xml', 'XML'),
+                    ('xquery', 'XQuery'),
+                    ('yaml', 'YAML'),)
