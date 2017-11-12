@@ -2,6 +2,10 @@
 
 [![Build Status](https://travis-ci.org/renefs/bocabit_code.svg?branch=master)](https://travis-ci.org/renefs/bocabit_code)
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/3077dbf5b58e496ca2af/maintainability)](https://codeclimate.com/github/renefs/bocabit_code/maintainability)
+
+[![Test Coverage](https://api.codeclimate.com/v1/badges/3077dbf5b58e496ca2af/test_coverage)](https://codeclimate.com/github/renefs/bocabit_code/test_coverage)
+
 ## Requirements
 
 * Python >= 3.5
