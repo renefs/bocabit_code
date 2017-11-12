@@ -1,17 +1,17 @@
 from django_assets import Bundle, register
 
 js = Bundle('static/codeapp/libs/js/jquery.min.js',
-            'static/codeapp/libs/js/semantic.min.js',
-            'static/codeapp/libs/js/jquery.dataTables.min.js',
-            'static/codeapp/libs/js/dataTables.semanticui.min.js',
-            'static/codeapp/js/base.js',
+            'static/codeapp/libs/js/bootstrap.min.js',
             filters='jsmin', output='static/codeapp/gen/packed.js')
 register('js_all', js)
+
+js = Bundle('static/codeapp/js/base.js',
+            filters='jsmin', output='static/codeapp/gen/packed2.js')
+register('js_all2', js)
 #
 css = Bundle(
     # 'static/css/base.scss',
-    'static/codeapp/libs/css/semantic.min.css',
-    'static/codeapp/libs/css/dataTables.semanticui.min.css',
+    'static/codeapp/libs/css/bootstrap.min.css',
     output='static/codeapp/gen/packed.css')
 register('css_all', css)
 
