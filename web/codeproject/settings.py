@@ -184,7 +184,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-ASSETS_ROOT = 'stocks'
+ASSETS_ROOT = 'codeapp'
 ASSETS_URL = ''
 
 AUTH_USER_MODEL = 'users.User'
