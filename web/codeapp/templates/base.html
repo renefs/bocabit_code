@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load assets %}
+    {% assets "css_all" %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}"/>
+    {% endassets %}
+    {% assets "css_all2" %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}"/>
+    {% endassets %}
+</head>
+<body>
+{#{% include 'macros/main_menu.html' %}#}
+<div class="ui stackable one column padded grid">
+    <div class="sixteen wide column">
+        {% block content %}{% endblock %}
+    </div>
+{#    <div class="four wide column">#}
+{#        <div class="ui half page test ad" data-text="Half Page"></div>#}
+{#    </div>#}
+</div>
+{% assets "js_all" %}
+    <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+{% endassets %}
+
+{% block extra_javascript %}{% endblock %}
+</body>
+</html>
