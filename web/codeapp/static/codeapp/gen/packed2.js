@@ -1,1 +1,1 @@
-$(document).ready(function(){console.log("Loading js");$('#sidebarCollapse').on('click',function(){$('#sidebar').toggleClass('active');});});
+$(document).ready(function(){console.log("Loading js");$(document).ready(function(){$('#sidebarCollapse').on('click',function(){$('#sidebar').toggleClass('active');});});});

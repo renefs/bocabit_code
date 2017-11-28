@@ -3,11 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <!-- Bootstrap CSS CDN -->
+{#    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">#}
+
     {% load assets %}
-    {% assets "css_all" %}
-        <link rel="stylesheet" href="{{ ASSET_URL }}"/>
-    {% endassets %}
-    {% assets "css_all2" %}
+        {% assets "css_libs" %}
+            <link rel="stylesheet" href="{{ ASSET_URL }}"/>
+        {% endassets %}
+    {% assets "css_custom" %}
         <link rel="stylesheet" href="{{ ASSET_URL }}"/>
     {% endassets %}
 </head>
@@ -23,31 +27,33 @@
 
         <ul class="list-unstyled components">
             <li class="active">
-                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Home</a>
-                <ul class="collapse list-unstyled" id="homeSubmenu">
-                    <li><a href="#">Home 1</a></li>
-                    <li><a href="#">Home 2</a></li>
-                    <li><a href="#">Home 3</a></li>
-                </ul>
+                <a href="#homeSubmenu">
+                    <i class="glyphicon glyphicon-console"></i>
+                    Code
+                </a>
             </li>
             <li>
-                <a href="#">About</a>
-                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Pages</a>
-                <ul class="collapse list-unstyled" id="pageSubmenu">
-                    <li><a href="#">Page 1</a></li>
-                    <li><a href="#">Page 2</a></li>
-                    <li><a href="#">Page 3</a></li>
-                </ul>
+                <a href="#" class="no-child">
+                    <i class="glyphicon glyphicon-tag"></i>
+                    Tags
+                </a>
+                <a href="#pageSubmenu">
+                    <i class="glyphicon glyphicon-inbox"></i>
+                    Workspaces
+                </a>
             </li>
             <li>
-                <a href="#">Portfolio</a>
+                <a href="#">
+                    <i class="glyphicon glyphicon-user"></i>
+                    User Groups
+                </a>
             </li>
         </ul>
 
         {% if user.is_authenticated %}
             <ul class="list-unstyled CTAs">
                 <li><a href="{% url 'users:profile' %}" class="article">
-                    <img class="rounded-circle w-25 p-0" src="{{ user.avatar }}">
+                    <img class="img-circle" src="{{ user.avatar }}">
                     <span>{{ user.username }}</span>
                 </a></li>
                 <li><a href="{% url 'logout' %}?next={{ request.path }}" class="article">
@@ -123,15 +129,17 @@
     </div>
 </div>
 
+<!-- jQuery CDN -->
+<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<!-- Bootstrap Js CDN -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-{#<div class="container-fluid">#}
-{#    {% block content %}{% endblock %}#}
-{#</div>#}
-{% assets "js_all" %}
-    <script type="text/javascript" src="{{ ASSET_URL }}"></script>
-{% endassets %}
 
-{% assets "js_all2" %}
+{#{% assets "js_all" %}#}
+{#    <script type="text/javascript" src="{{ ASSET_URL }}"></script>#}
+{#{% endassets %}#}
+
+{% assets "js_custom" %}
     <script type="text/javascript" src="{{ ASSET_URL }}"></script>
 {% endassets %}
 

@@ -8,3 +8,5 @@ LOG_DEBUG_PATH = os.environ["LOG_DEBUG_PATH"]
 ALLOWED_HOSTS = []
 
 DEBUG = False
+
+STATIC_ROOT = '../static'

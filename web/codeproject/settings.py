@@ -186,6 +186,7 @@ STATIC_URL = '/static/'
 
 ASSETS_ROOT = 'codeapp'
 ASSETS_URL = ''
+STATIC_ROOT = config.STATIC_ROOT
 
 AUTH_USER_MODEL = 'users.User'
 
