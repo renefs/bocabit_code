@@ -1,10 +1,27 @@
-{% extends 'base.html' %}
+{% extends 'base_not_logged.html' %}
 
 {% block content %}
-    <div class="sixteen wide column">
-        <a class="ui google plus button" href="{% url "social:begin" "google-oauth2" %}">
-            <i class="google plus icon"></i>
-            Login with your Google Account
-        </a>
+    <div class="container">
+        <div class="row vertical-offset-100">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Please sign in</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form accept-charset="UTF-8" role="form">
+                            <fieldset>
+                                <div class="form-group">
+                                    <a href="{% url "social:begin" "google-oauth2" %}"
+                                       class="btn btn-block btn-social btn-google">
+                                        <span class="fa fa-google"></span> Sign in with Google
+                                    </a>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

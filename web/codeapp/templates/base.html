@@ -1,33 +1,99 @@
 <!DOCTYPE html>
+{% load i18n %}
+{% load django_bootstrap_breadcrumbs %}
+{% block breadcrumbs %}
+    {% clear_breadcrumbs %}
+    {% breadcrumb_safe "<i class='glyphicon glyphicon-home'></i> Home" "/" %}
+{% endblock %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>{% block title %}{% endblock %}</title>
+
     {% load assets %}
-    {% assets "css_all" %}
+    {% assets "css_libs" %}
         <link rel="stylesheet" href="{{ ASSET_URL }}"/>
     {% endassets %}
-    {% assets "css_all2" %}
+    {% assets "css_custom" %}
         <link rel="stylesheet" href="{{ ASSET_URL }}"/>
     {% endassets %}
 </head>
 <body>
 <div class="wrapper">
+    <nav id="sidebar" class="navbar-dark bg-primary">
+        <div class="sidebar-header">
+            <a href="{% url 'codeapp:index' %}">
+                Bocabit Code
+            </a>
+        </div>
+
+        <ul class="list-unstyled components">
+            <li class="active">
+                <a href="#homeSubmenu">
+                    <i class="glyphicon glyphicon-console"></i>
+                    Code
+                </a>
+            </li>
+            <li>
+                <a href="#" class="no-child">
+                    <i class="glyphicon glyphicon-tag"></i>
+                    Tags
+                </a>
+                <a href="#pageSubmenu">
+                    <i class="glyphicon glyphicon-inbox"></i>
+                    Workspaces
+                </a>
+            </li>
+            {#            <li>#}
+            {#                <a href="#">#}
+            {#                    <i class="glyphicon glyphicon-user"></i>#}
+            {#                    User Groups#}
+            {#                </a>#}
+            {#            </li>#}
+        </ul>
+
+        {% if user.is_authenticated %}
+            <ul class="list-unstyled CTAs">
+                <li><a href="{% url 'users:profile' %}" class="article">
+                    <img class="img-circle" src="{{ user.avatar }}">
+                    <span>{{ user.username }}</span>
+                </a></li>
+                <li><a href="{% url 'logout' %}?next={{ request.path }}" class="article">
+                    Logout
+                </a></li>
+            </ul>
+        {% endif %}
+        <div class="sidebar-header toggle-link">
+            <a href="#" id="sidebarCollapse">
+                <i class="glyphicon glyphicon-menu-hamburger"></i>
+                <span>Toggle Sidebar</span>
+            </a>
+        </div>
+    </nav>
+
     <!-- Page Content Holder -->
     <div id="content">
+
+        {% block header %}{% endblock %}
+
+        {% render_breadcrumbs "django_bootstrap_breadcrumbs/bootstrap3.html" %}
+
         {% block content %}{% endblock %}
+
     </div>
 </div>
 
+<!-- jQuery CDN -->
+{#<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>#}
+<!-- Bootstrap Js CDN -->
+{#<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>#}
 
-{#<div class="container-fluid">#}
-{#    {% block content %}{% endblock %}#}
-{#</div>#}
-{% assets "js_all" %}
+
+{% assets "js_libs" %}
     <script type="text/javascript" src="{{ ASSET_URL }}"></script>
 {% endassets %}
 
-{% assets "js_all2" %}
+{% assets "js_custom" %}
     <script type="text/javascript" src="{{ ASSET_URL }}"></script>
 {% endassets %}
 

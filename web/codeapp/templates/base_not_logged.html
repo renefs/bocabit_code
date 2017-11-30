@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!-- Bootstrap CSS CDN -->
+    {#    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">#}
+
+    {% load assets %}
+    {% assets "css_libs" %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}"/>
+    {% endassets %}
+    {% assets "css_custom" %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}"/>
+    {% endassets %}
+</head>
+<body>
+<div class="wrapper">
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+</div>
+</body>
+</html>
