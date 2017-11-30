@@ -12,6 +12,8 @@ register('js_custom', js)
 css = Bundle(
     # 'static/css/base.scss',
     'static/codeapp/libs/css/bootstrap.min.css',
+    'static/codeapp/libs/css/bootstrap-social.css',
+    'static/codeapp/libs/css/font-awesome.css',
     output='static/codeapp/gen/packed.css')
 register('css_libs', css)
 

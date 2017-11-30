@@ -66,8 +66,8 @@ i, span {
 }
 
 #sidebar.active {
-    min-width: 80px;
-    max-width: 80px;
+    min-width: 90px;
+    max-width: 90px;
     text-align: center;
 }
 
@@ -148,6 +148,12 @@ i, span {
     background: #f9f9f9;
 }
 
+#sidebar .toggle-link {
+    //position: fixed;
+    bottom: 0;
+    display: flex;
+}
+
 
 a[data-toggle="collapse"] {
     position: relative;
@@ -203,6 +209,15 @@ a.article, a.article:hover {
     padding: 20px;
     min-height: 100vh;
     transition: all 0.3s;
+    width: 100%;
+}
+
+.vertical-offset-100{
+    padding-top:100px;
+}
+
+.code-toolbar{
+    margin-bottom: 20px;
 }
 
 
@@ -211,10 +226,10 @@ a.article, a.article:hover {
 ----------------------------------------------------- */
 @media (max-width: 768px) {
     #sidebar {
-        min-width: 80px;
-        max-width: 80px;
+        min-width: 90px;
+        max-width: 90px;
         text-align: center;
-        margin-left: -80px !important ;
+        margin-left: -90px !important ;
     }
     a[aria-expanded="false"]::before, a[aria-expanded="true"]::before {
         top: auto;
