@@ -4,6 +4,7 @@ cssmin==0.2.0
 defusedxml==0.5.0
 Django==1.11.6
 django-assets==0.12
+django-bootstrap-breadcrumbs==0.8.2
 django-formtools==2.1
 idna==2.6
 jsmin==2.2.2

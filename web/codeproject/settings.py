@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django_assets',
     'formtools',
     'social_django',
+    'django_bootstrap_breadcrumbs'
 ]
 
 AUTHENTICATION_BACKENDS = (
