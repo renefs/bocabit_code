@@ -4,6 +4,7 @@ import logging
 from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.base import ContextMixin
 
 from codeapp.models import Code, Snippet
 
@@ -65,7 +66,15 @@ class CodeUpdateView(LoginRequiredMixin, generic.UpdateView):
         return reverse_lazy('codeapp:code_detail', kwargs={'pk': self.object.id})
 
 
-class SnippetCreateView(LoginRequiredMixin, generic.CreateView):
+class SnippetContextMixin(LoginRequiredMixin, ContextMixin):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        code_pk = self.kwargs.get('code_id')
+        context['code'] = Code.objects.get(pk=code_pk)
+        return context
+
+
+class SnippetCreateView(generic.CreateView, SnippetContextMixin):
     model = Snippet
     fields = ['title', 'language', 'text']
     template_name = 'snippet/snippet_form.html'
@@ -79,12 +88,6 @@ class SnippetCreateView(LoginRequiredMixin, generic.CreateView):
         pk = self.kwargs.get('pk')
         return Code.objects.get(pk=pk)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        code_pk = self.kwargs.get('pk')
-        context['code'] = Code.objects.get(pk=code_pk)
-        return context
-
     def form_valid(self, form, **kwargs):
         logger.debug("Form is valid")
         self.object = form.save(commit=False)
@@ -96,25 +99,12 @@ class SnippetCreateView(LoginRequiredMixin, generic.CreateView):
         return super(SnippetCreateView, self).form_valid(form)
 
 
-class SnippetDetailView(LoginRequiredMixin, generic.DetailView):
+class SnippetDetailView(generic.DetailView, SnippetContextMixin):
     model = Snippet
     template_name = 'snippet/snippet_detail.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        code_pk = self.kwargs.get('code_id')
-        context['code'] = Code.objects.get(pk=code_pk)
-        return context
 
-
-class SnippetUpdateView(LoginRequiredMixin, generic.UpdateView):
+class SnippetUpdateView(generic.UpdateView, SnippetContextMixin):
     model = Snippet
     fields = ['title', 'language', 'text']
     template_name = 'snippet/snippet_form_update.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        code_pk = self.kwargs.get('code_id')
-        context['code'] = Code.objects.get(pk=code_pk)
-        context['snippet'] = self.get_object()
-        return context
