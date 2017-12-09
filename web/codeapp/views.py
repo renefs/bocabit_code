@@ -95,11 +95,6 @@ class SnippetCreateView(LoginRequiredMixin, generic.CreateView):
 
         return super(SnippetCreateView, self).form_valid(form)
 
-    def get_success_url(self):
-        logger.debug(self.object.code_id)
-        logger.debug(self.object.id)
-        return reverse_lazy('codeapp:snippet_detail', kwargs={'code_id': self.object.code_id, 'pk': self.object.id})
-
 
 class SnippetDetailView(LoginRequiredMixin, generic.DetailView):
     model = Snippet
@@ -123,8 +118,3 @@ class SnippetUpdateView(LoginRequiredMixin, generic.UpdateView):
         context['code'] = Code.objects.get(pk=code_pk)
         context['snippet'] = self.get_object()
         return context
-
-    def get_success_url(self):
-        logger.debug(self.object.code_id)
-        logger.debug(self.object.id)
-        return reverse_lazy('codeapp:snippet_detail', kwargs={'code_id': self.object.code_id, 'pk': self.object.id})

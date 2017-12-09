@@ -1,6 +1,8 @@
 from django.db import models
 
 # Create your models here.
+from django.urls import reverse_lazy
+
 from codeproject import settings
 from users.models import User
 
@@ -66,6 +68,9 @@ class Snippet(BaseSnippet):
 
     def __str__(self):
         return "{} {} {}".format(self.title, self.author_id, self.code_id)
+
+    def get_absolute_url(self):
+        return reverse_lazy('codeapp:snippet_detail', kwargs={'code_id': self.code_id, 'pk': self.id})
 
 
 class Version(BaseSnippet):
