@@ -4,6 +4,7 @@
 $(document).ready(function () {
     console.log("Loading js");
     $(document).ready(function () {
+        $('.dropdown-toggle').dropdown();
         $('#sidebarCollapse').on('click', function () {
             $('#sidebar').toggleClass('active');
         });

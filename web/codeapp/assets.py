@@ -1,13 +1,17 @@
 from django_assets import Bundle, register
 
-js = Bundle('static/codeapp/libs/js/jquery.min.js',
-            'static/codeapp/libs/js/bootstrap.min.js',
-            filters='jsmin', output='static/codeapp/gen/packed.js')
-register('js_libs', js)
+js_libs = Bundle('static/codeapp/libs/js/jquery.min.js',
+                 'static/codeapp/libs/js/bootstrap.min.js',
+                 filters='jsmin', output='static/codeapp/gen/packed.js')
+register('js_libs', js_libs)
 
-js = Bundle('static/codeapp/js/base.js',
-            filters='jsmin', output='static/codeapp/gen/packed2.js')
-register('js_custom', js)
+js_snippet_form = Bundle('static/codeapp/js/snippet/snippet_form.js',
+                         filters='jsmin', output='static/codeapp/gen/snippet_packed.js')
+register('js_snippet_form', js_snippet_form)
+
+js_custom = Bundle('static/codeapp/js/base.js',
+                   filters='jsmin', output='static/codeapp/gen/packed2.js')
+register('js_custom', js_custom)
 #
 css = Bundle(
     # 'static/css/base.scss',
