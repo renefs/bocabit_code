@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 # Create your tests here.
-from codeapp.models import Tag, Code, Workspace, Snippet
+from codeapp.models import Tag, Code, Snippet, Project
 from users.models import User
 
 
@@ -38,20 +38,20 @@ class CodeTestCase(TestCase):
             Code.objects.get(title="This is NOT the code title")
 
 
-class WorkspaceTestCase(TestCase):
+class ProjectTestCase(TestCase):
     def setUp(self):
         user = User.objects.create(email="test@test.com")
-        Workspace.objects.create(title="This is the workspace title",
-                                 description="This is the workspace description",
+        Project.objects.create(title="This is the project title",
+                                 description="This is the project description",
                                  owner=user)
 
-    def test_workspace_exist(self):
-        workspace = Workspace.objects.get(title="This is the workspace title")
-        self.assertNotEqual(workspace.title, "", "title should not be empty")
+    def test_project_exist(self):
+        project = Project.objects.get(title="This is the project title")
+        self.assertNotEqual(project.title, "", "title should not be empty")
 
-    def test_workspace_not_exist(self):
-        with self.assertRaises(Workspace.DoesNotExist):
-            Workspace.objects.get(title="This is NOT the workspace title")
+    def test_project_not_exist(self):
+        with self.assertRaises(Project.DoesNotExist):
+            Project.objects.get(title="This is NOT the project title")
 
 
 class SnippetTestCase(TestCase):

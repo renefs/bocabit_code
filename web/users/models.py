@@ -19,7 +19,7 @@ class UserGroup(models.Model):
 
     """
     title = models.CharField(max_length=200)
-    owner = models.ForeignKey(User, related_name='owned_groups')
+    owner = models.ForeignKey(User, related_name='owned_groups', on_delete=models.CASCADE)
     description = models.TextField(blank=True, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)

@@ -1,0 +1,30 @@
+{% extends "code/code_list.html" %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block title %}
+    Create Code
+{% endblock %}
+
+{% block header %}
+    <h1 class="ui header">Create Code</h1>
+{% endblock %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb_for "codeapp:code_create" %}
+        <i class="glyphicon glyphicon-plus"></i> Create New
+    {% endbreadcrumb_for %}
+{% endblock %}
+
+{% block content %}
+    This is the create page
+
+            {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Add"/>
+            </form>
+
+{% endblock %}

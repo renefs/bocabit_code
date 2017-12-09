@@ -1,0 +1,52 @@
+{% extends "code/code_list.html" %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block title %}
+    Bocabit Code
+{% endblock %}
+
+{% block header %}
+    <h1 class="ui header">{{ code.title }}</h1>
+    <p>{{ code.description }}</p>
+{% endblock %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb_for 'codeapp:code_detail' code.id %}
+        <i class="glyphicon glyphicon-console"></i> {{ code.title }}
+    {% endbreadcrumb_for %}
+{% endblock %}
+
+{% block content %}
+
+    <div class="btn-toolbar pull-right" role="toolbar">
+        <div class="btn-group">
+            <button class="btn btn-danger" type="button" data-toggle="modal"
+                    data-target="#myModal-38e74e5da85246b0a8a260e9254cadc3"><i class="glyphicon glyphicon-remove"></i>
+                Delete
+            </button>
+        </div>
+    </div>
+
+    <div class="btn-toolbar code-toolbar" role="toolbar">
+        <div class="btn-group">
+            <a href="{% url "codeapp:snippet_create" code.id %}" class="btn btn-success"><span
+                    class="glyphicon glyphicon-plus"></span> Add Snippet</a>
+
+        </div>
+        <div class="btn-group">
+            <a href="{% url "codeapp:code_create" %}" class="btn btn-default"><span
+                    class="glyphicon glyphicon-edit"></span> Edit Code</a>
+        </div>
+    </div>
+
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+
+
+        </div>
+    </div>
+
+
+{% endblock %}

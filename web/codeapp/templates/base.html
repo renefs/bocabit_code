@@ -1,9 +1,7 @@
 <!DOCTYPE html>
-{% load i18n %}
 {% load django_bootstrap_breadcrumbs %}
 {% block breadcrumbs %}
     {% clear_breadcrumbs %}
-    {% breadcrumb_safe "<i class='glyphicon glyphicon-home'></i> Home" "/" %}
 {% endblock %}
 <html lang="en">
 <head>
@@ -22,14 +20,14 @@
 <div class="wrapper">
     <nav id="sidebar" class="navbar-dark bg-primary">
         <div class="sidebar-header">
-            <a href="{% url 'codeapp:index' %}">
+            <a href="{% url 'codeapp:code_list' %}">
                 Bocabit Code
             </a>
         </div>
 
         <ul class="list-unstyled components">
             <li class="active">
-                <a href="#homeSubmenu">
+                <a href="{% url "codeapp:code_list" %}">
                     <i class="glyphicon glyphicon-console"></i>
                     Code
                 </a>
@@ -41,52 +39,48 @@
                 </a>
                 <a href="#pageSubmenu">
                     <i class="glyphicon glyphicon-inbox"></i>
-                    Workspaces
+                    Projects
                 </a>
             </li>
-            {#            <li>#}
-            {#                <a href="#">#}
-            {#                    <i class="glyphicon glyphicon-user"></i>#}
-            {#                    User Groups#}
-            {#                </a>#}
-            {#            </li>#}
         </ul>
 
-        {% if user.is_authenticated %}
-            <ul class="list-unstyled CTAs">
-                <li><a href="{% url 'users:profile' %}" class="article">
-                    <img class="img-circle" src="{{ user.avatar }}">
-                    <span>{{ user.username }}</span>
-                </a></li>
-                <li><a href="{% url 'logout' %}?next={{ request.path }}" class="article">
-                    Logout
-                </a></li>
-            </ul>
-        {% endif %}
-        <div class="sidebar-header toggle-link">
-            <a href="#" id="sidebarCollapse">
-                <i class="glyphicon glyphicon-menu-hamburger"></i>
-                <span>Toggle Sidebar</span>
-            </a>
-        </div>
     </nav>
 
     <!-- Page Content Holder -->
     <div id="content">
 
-        {% block header %}{% endblock %}
+        <div class="btn-toolbar pull-right" role="toolbar">
+            <div class="btn-group"><a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                <img class="img-circle" src="{{ user.avatar }}">
+                <span>{{ user.username }}</span> <span class="caret"></span>
+            </a>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li><a href="{% url 'users:profile' %}">Your account</a></li>
+                    <li class="divider"></li>
+                    <li><a href="{% url 'logout' %}?next={{ request.path }}">
+                        <i class="glyphicon glyphicon-log-out"></i> Logout
+                    </a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="button-toolbar code-toolbar" role="toolbar">
+            <div class="btn-group">
+                <a href="#" id="sidebarCollapse">
+                    <i class="glyphicon glyphicon-menu-hamburger"></i>
+                </a>
+            </div>
+
+        </div>
 
         {% render_breadcrumbs "django_bootstrap_breadcrumbs/bootstrap3.html" %}
+
+        {% block header %}{% endblock %}
 
         {% block content %}{% endblock %}
 
     </div>
 </div>
-
-<!-- jQuery CDN -->
-{#<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>#}
-<!-- Bootstrap Js CDN -->
-{#<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>#}
 
 
 {% assets "js_libs" %}
