@@ -15,12 +15,12 @@ class UserViewsTestCase(TestCase):
 
     def test_home_not_logged_in_reverse(self):
         # Simple get
-        response = self.client.get(reverse('codeapp:index'))
+        response = self.client.get(reverse('codeapp:code_list'))
         self.assertEqual(response.status_code, 302)
 
     def test_home_not_logged_in(self):
         # Simple get
-        response = self.client.get('/')
+        response = self.client.get(reverse('codeapp:code_list'))
         self.assertEqual(response.status_code, 302)
 
     def test_home_logged_in(self):
@@ -32,5 +32,5 @@ class UserViewsTestCase(TestCase):
         login = self.client.login(username='testuser', password='hello')
         self.assertTrue(login)
 
-        response = self.client.get('/')
+        response = self.client.get(reverse('codeapp:code_list'))
         self.assertEqual(response.status_code, 200)
