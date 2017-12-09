@@ -1,5 +1,4 @@
-def get_avatar(backend, strategy, details, response,
-               user=None, *args, **kwargs):
+def get_avatar(backend, user, response, *args, **kwargs):
     url = None
     if backend.name == 'facebook':
         url = "http://graph.facebook.com/%s/picture?type=large" % response['id']
