@@ -1,0 +1,30 @@
+{% extends "code/code_detail.html" %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block title %}
+    Create Code
+{% endblock %}
+
+{% block header %}
+    <h1 class="ui header">Update Code</h1>
+{% endblock %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb_for "codeapp:code_update" code.id %}
+        <i class="glyphicon glyphicon-plus"></i> Edit {{ code.title }}
+    {% endbreadcrumb_for %}
+{% endblock %}
+
+{% block content %}
+    This is the edit page
+
+            {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Update"/>
+            </form>
+
+{% endblock %}

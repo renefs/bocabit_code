@@ -1,7 +1,5 @@
 import logging
 
-from django.shortcuts import render
-
 # Create your views here.
 from django.urls import reverse_lazy
 from django.views import generic
@@ -19,6 +17,7 @@ class CodeIndexView(LoginRequiredMixin, generic.ListView):
     context_object_name = 'code_list'
     # template view
     template_name = 'code/code_list.html'
+    paginate_by = 10
 
     def get_queryset(self):
         """
@@ -26,14 +25,9 @@ class CodeIndexView(LoginRequiredMixin, generic.ListView):
         :return: Codes only from the user
         """
         return Code.objects.filter(owner=self.request.user)
-    #
-    # def get_context_data(self, **kwargs):
-    #     context = super(CodeIndexView, self).get_context_data(**kwargs)
-    #     context['markets_list'] = Market.objects.all()
-    #     return context
 
 
-class CodeCreateView(generic.CreateView):
+class CodeCreateView(LoginRequiredMixin, generic.CreateView):
     model = Code
     fields = ['title', 'description']
     success_url = reverse_lazy('codeapp:code_list')
@@ -57,31 +51,80 @@ class CodeCreateView(generic.CreateView):
         return super(CodeCreateView, self).form_valid(form)
 
 
-class CodeDetailView(generic.DetailView):
+class CodeDetailView(LoginRequiredMixin, generic.DetailView):
     model = Code
     template_name = 'code/code_detail.html'
-    # pk_url_kwarg = 'code_id'
 
 
-class SnippetCreateView(generic.CreateView):
+class CodeUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Code
+    fields = ['title', 'description']
+    template_name = 'code/code_form_update.html'
+
+    def get_success_url(self):
+        return reverse_lazy('codeapp:code_detail', kwargs={'pk': self.object.id})
+
+
+class SnippetCreateView(LoginRequiredMixin, generic.CreateView):
     model = Snippet
     fields = ['title', 'language', 'text']
     template_name = 'snippet/snippet_form.html'
-    # pk_url_kwarg = 'code_id'
+
+    def __init__(self, **kwargs):
+        self.object = None
+        super().__init__(**kwargs)
 
     def get_queryset(self):
-        """Return the last five published questions."""
         logger.debug(self.request)
         pk = self.kwargs.get('pk')
         return Code.objects.get(pk=pk)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        pk = self.kwargs.get('pk')
-        context['code'] = Code.objects.get(pk=pk)
+        code_pk = self.kwargs.get('pk')
+        context['code'] = Code.objects.get(pk=code_pk)
         return context
 
-    # def __init__(self, **kwargs):
-    #     pk = self.kwargs.get('pk')
-    #     self.code = Code.objects.get(pk=pk)
-    #     super().__init__(**kwargs)
+    def form_valid(self, form, **kwargs):
+        logger.debug("Form is valid")
+        self.object = form.save(commit=False)
+        self.object.author = self.request.user
+        code_pk = self.kwargs.get('pk')
+        self.object.code = Code.objects.get(pk=code_pk)
+        self.object.save()
+
+        return super(SnippetCreateView, self).form_valid(form)
+
+    def get_success_url(self):
+        logger.debug(self.object.code_id)
+        logger.debug(self.object.id)
+        return reverse_lazy('codeapp:snippet_detail', kwargs={'code_id': self.object.code_id, 'pk': self.object.id})
+
+
+class SnippetDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Snippet
+    template_name = 'snippet/snippet_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        code_pk = self.kwargs.get('code_id')
+        context['code'] = Code.objects.get(pk=code_pk)
+        return context
+
+
+class SnippetUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Snippet
+    fields = ['title', 'language', 'text']
+    template_name = 'snippet/snippet_form_update.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        code_pk = self.kwargs.get('code_id')
+        context['code'] = Code.objects.get(pk=code_pk)
+        context['snippet'] = self.get_object()
+        return context
+
+    def get_success_url(self):
+        logger.debug(self.object.code_id)
+        logger.debug(self.object.id)
+        return reverse_lazy('codeapp:snippet_detail', kwargs={'code_id': self.object.code_id, 'pk': self.object.id})

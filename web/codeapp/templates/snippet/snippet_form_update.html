@@ -1,4 +1,4 @@
-{% extends "code/code_detail.html" %}
+{% extends "snippet/snippet_detail.html" %}
 {% load assets %}
 {% load django_bootstrap_breadcrumbs %}
 
@@ -7,13 +7,13 @@
 {% endblock %}
 
 {% block header %}
-    <h1 class="ui header">Add Snippet</h1>
+    <h1 class="ui header">Update Snippet</h1>
 {% endblock %}
 
 {% block breadcrumbs %}
     {{ block.super }}
-    {% breadcrumb_for "codeapp:snippet_create" %}
-        <i class="glyphicon glyphicon-plus"></i> Create New
+    {% breadcrumb_for "codeapp:snippet_update" code.id snippet.id %}
+        <i class="glyphicon glyphicon-edit"></i> Update {{ snippet.title }}
     {% endbreadcrumb_for %}
 {% endblock %}
 
@@ -24,7 +24,7 @@
     <form action="" method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Add"/>
+        <input type="submit" value="Update"/>
     </form>
 
     <pre id="editor"></pre>

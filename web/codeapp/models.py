@@ -44,6 +44,9 @@ class Code(models.Model):
         unique_together = (("title", "owner"),)
         ordering = ('created_at',)
 
+    def __str__(self):
+        return "{} {} {}".format(self.id, self.title, self.description)
+
 
 class BaseSnippet(models.Model):
     language = models.CharField(max_length=100, choices=settings.LANGUAGE_CHOICES)
@@ -60,6 +63,9 @@ class Snippet(BaseSnippet):
     author = models.ForeignKey(User, related_name='owned_snippets', on_delete=models.CASCADE)
     code = models.ForeignKey(Code, related_name='snippets', on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
+
+    def __str__(self):
+        return "{} {} {}".format(self.title, self.author_id, self.code_id)
 
 
 class Version(BaseSnippet):

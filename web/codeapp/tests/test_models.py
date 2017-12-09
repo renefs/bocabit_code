@@ -42,8 +42,8 @@ class ProjectTestCase(TestCase):
     def setUp(self):
         user = User.objects.create(email="test@test.com")
         Project.objects.create(title="This is the project title",
-                                 description="This is the project description",
-                                 owner=user)
+                               description="This is the project description",
+                               owner=user)
 
     def test_project_exist(self):
         project = Project.objects.get(title="This is the project title")

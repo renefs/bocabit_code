@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block header %}
-    <h1 class="ui header">Bocabit Code Index</h1>
+    <h1 class="ui header">Your code</h1>
 {% endblock %}
 
 {% block breadcrumbs %}
@@ -44,10 +44,15 @@
                         <tbody>
                         {% for code in code_list %}
                             <tr>
-                                <td><span class="label label-danger">Privado</span></td>
+                                <td>{% if code.is_private %}
+                                    <span class="label label-danger">Private</span>
+                                {% else %}
+                                    <span class="label label-danger">Public</span>
+                                {% endif %}
+                                </td>
                                 <td>
                                     <a class="btn-link" href="{% url 'codeapp:code_detail' code.id %}"
-                                       title="Prueba">Prueba</a>
+                                       title="{{ code.title }}">{{ code.title }}</a>
                                 </td>
                                 <td>{{ code.description }}<br>
                                     <em>Tags:
@@ -55,7 +60,7 @@
                                            title="etiqueta 1">etiqueta
                                             1</a>
                                     </em></td>
-                                <td>1</td>
+                                <td>{{ code.snippets.count }}</td>
                                 <td>
                                     <a href="/app/workmate/workspaces/a66f0b6d5a5a4994bf97a674e5502a1c/"
                                        title="espacio 1">espacio
@@ -73,6 +78,28 @@
                         </tbody>
                     </table>
                 </div>
+
+                {% if is_paginated %}
+                    <ul class="pagination">
+                        {% if page_obj.has_previous %}
+                            <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+                        {% else %}
+                            <li class="disabled"><span>&laquo;</span></li>
+                        {% endif %}
+                        {% for i in paginator.page_range %}
+                            {% if page_obj.number == i %}
+                                <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                            {% else %}
+                                <li><a href="?page={{ i }}">{{ i }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if page_obj.has_next %}
+                            <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+                        {% else %}
+                            <li class="disabled"><span>&raquo;</span></li>
+                        {% endif %}
+                    </ul>
+                {% endif %}
 
             {% else %}
                 <p>No code yet.</p>

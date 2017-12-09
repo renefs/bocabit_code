@@ -35,7 +35,7 @@
 
         </div>
         <div class="btn-group">
-            <a href="{% url "codeapp:code_create" %}" class="btn btn-default"><span
+            <a href="{% url "codeapp:code_update" code.id %}" class="btn btn-default"><span
                     class="glyphicon glyphicon-edit"></span> Edit Code</a>
         </div>
     </div>
@@ -44,6 +44,77 @@
     <div class="panel panel-default">
         <div class="panel-body">
 
+            {% if code.snippets %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+{#                            <th>#</th>#}
+                            <th>Snippet</th>
+{#                            <th>Description</th>#}
+{#                            <th>Snippets</th>#}
+{#                            <th>Projects</th>#}
+{#                            <th></th>#}
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for snippet in code.snippets.all %}
+                            <tr>
+
+                                <td>
+                                    <a class="btn-link" href="{% url 'codeapp:snippet_detail' code.id snippet.id %}"
+                                       title="{{ snippet.title }}">{{ snippet.title }}</a>
+                                </td>
+{#                                <td>{{ code.description }}<br>#}
+{#                                    <em>Tags:#}
+{#                                        <a href="/app/workmate/tags/19b890e7dd6344a6aff17f98011c11e3/"#}
+{#                                           title="etiqueta 1">etiqueta#}
+{#                                            1</a>#}
+{#                                    </em></td>#}
+{#                                <td>{{ code.snippets.count }}</td>#}
+{#                                <td>#}
+{#                                    <a href="/app/workmate/workspaces/a66f0b6d5a5a4994bf97a674e5502a1c/"#}
+{#                                       title="espacio 1">espacio#}
+{#                                        1</a>#}
+{#                                </td>#}
+{#                                <td>#}
+{#                                    <button class="btn btn-link delete-btn" type="button" data-toggle="modal"#}
+{#                                            data-target="#myModal-38e74e5da85246b0a8a260e9254cadc3" title="Borrar Goal">#}
+{#                                        <i#}
+{#                                                class="glyphicon glyphicon-trash"></i></button>#}
+{#                                </td>#}
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+
+{#                {% if is_paginated %}#}
+{#                    <ul class="pagination">#}
+{#                        {% if page_obj.has_previous %}#}
+{#                            <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>#}
+{#                        {% else %}#}
+{#                            <li class="disabled"><span>&laquo;</span></li>#}
+{#                        {% endif %}#}
+{#                        {% for i in paginator.page_range %}#}
+{#                            {% if page_obj.number == i %}#}
+{#                                <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>#}
+{#                            {% else %}#}
+{#                                <li><a href="?page={{ i }}">{{ i }}</a></li>#}
+{#                            {% endif %}#}
+{#                        {% endfor %}#}
+{#                        {% if page_obj.has_next %}#}
+{#                            <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>#}
+{#                        {% else %}#}
+{#                            <li class="disabled"><span>&raquo;</span></li>#}
+{#                        {% endif %}#}
+{#                    </ul>#}
+{#                {% endif %}#}
+
+            {% else %}
+                <p>No code yet.</p>
+            {% endif %}
 
         </div>
     </div>

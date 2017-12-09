@@ -1,0 +1,53 @@
+{% extends "code/code_detail.html" %}
+{% load assets %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block title %}
+    Bocabit Code
+{% endblock %}
+
+{% block header %}
+    <h1 class="ui header">Snippet Detail</h1>
+{% endblock %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb_for 'codeapp:snippet_detail' code.id snippet.id %}
+        <i class="glyphicon glyphicon-console"></i> {{ snippet.title }}
+    {% endbreadcrumb_for %}
+{% endblock %}
+
+{% block content %}
+
+    <div class="btn-toolbar code-toolbar" role="toolbar">
+        <div class="btn-group">
+            <a href="{% url "codeapp:snippet_create" code.id %}" class="btn btn-success"><span
+                    class="glyphicon glyphicon-plus"></span> Add Snippet</a>
+
+        </div>
+        <div class="btn-group">
+            <a href="{% url "codeapp:snippet_update" code.id snippet.id %}" class="btn btn-default"><span
+                    class="glyphicon glyphicon-edit"></span> Edit Snippet</a>
+        </div>
+    </div>
+
+    <pre id="editor">{{ snippet.text }}</pre>
+{% endblock %}
+
+{% block extra_javascript %}
+
+    <script type="text/javascript" src="/static/codeapp/libs/js/ace-noconflict/ace.js"></script>
+
+    {% assets "js_snippet_form" %}
+        {#        <script type="text/javascript" src="{{ ASSET_URL }}"></script>#}
+        <script type="text/javascript">
+            var editor = ace.edit("editor");
+            editor.setTheme("ace/theme/chrome");
+            editor.setReadOnly(true);
+            editor.getSession().setMode("ace/mode/{{ snippet.language }}");
+            editor.setOptions({
+                maxLines: editor.session.getLength()
+            });
+        </script>
+    {% endassets %}
+{% endblock %}
