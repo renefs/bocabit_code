@@ -2,6 +2,7 @@ from django_assets import Bundle, register
 
 js_libs = Bundle('static/codeapp/libs/js/jquery.min.js',
                  'static/codeapp/libs/js/bootstrap.min.js',
+                 'static/codeapp/libs/js/bootstrap-select.min.js',
                  filters='jsmin', output='static/codeapp/gen/packed.js')
 register('js_libs', js_libs)
 
@@ -17,6 +18,7 @@ css = Bundle(
     # 'static/css/base.scss',
     'static/codeapp/libs/css/bootstrap.min.css',
     'static/codeapp/libs/css/bootstrap-social.css',
+    'static/codeapp/libs/css/bootstrap-select.min.css',
     'static/codeapp/libs/css/font-awesome.css',
     output='static/codeapp/gen/packed.css')
 register('css_libs', css)
