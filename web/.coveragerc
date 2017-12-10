@@ -1,0 +1,10 @@
+[run]
+branch = true
+
+[report]
+omit =
+    *tests*
+    *migrations*
+    *manage.py*
+    *wsgi.py*
+show_missing = True
