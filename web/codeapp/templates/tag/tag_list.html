@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block title %}
+    Bocabit Code
+{% endblock %}
+
+{% block header %}
+    <h1 class="ui header">Your tags</h1>
+{% endblock %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb_for 'codeapp:tag_list' %}
+        <i class="glyphicon glyphicon-console"></i> Tags
+    {% endbreadcrumb_for %}
+{% endblock %}
+
+{% block content %}
+
+    <div class="button-toolbar code-toolbar" role="toolbar">
+        <div class="btn-group">
+            <a href="{% url "codeapp:tag_create" %}" class="btn btn-success"><span
+                    class="glyphicon glyphicon-plus"></span> Create Tag</a>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+
+            {% if tag_list %}
+
+                <ul class="nav nav-pills">
+                    {% for tag in tag_list %}
+                        <li>
+                            <a href="{% url "codeapp:tag_detail" tag.id %}" title="{{ tag.title }}">
+                                <span class="badge pull-right">{{ tag.codes.count }}</span>
+                                {{ tag.title }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No tags yet.</p>
+            {% endif %}
+
+        </div>
+    </div>
+
+
+{% endblock %}

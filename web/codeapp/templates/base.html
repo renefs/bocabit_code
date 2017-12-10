@@ -26,17 +26,19 @@
         </div>
 
         <ul class="list-unstyled components">
-            <li class="active">
+            <li class="{% if active == 'code' %}active{% endif %}">
                 <a href="{% url "codeapp:code_list" %}">
                     <i class="glyphicon glyphicon-console"></i>
                     Code
                 </a>
             </li>
-            <li>
-                <a href="#" class="no-child">
+            <li class="{% if active == 'tag' %}active{% endif %}">
+                <a href="{% url "codeapp:tag_list" %}" class="no-child">
                     <i class="glyphicon glyphicon-tag"></i>
                     Tags
                 </a>
+            </li>
+            <li {% if active == 'project' %}active{% endif %}>
                 <a href="#pageSubmenu">
                     <i class="glyphicon glyphicon-inbox"></i>
                     Projects

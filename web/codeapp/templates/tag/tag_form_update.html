@@ -1,0 +1,30 @@
+{% extends "tag/tag_detail.html" %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block title %}
+    Create Code
+{% endblock %}
+
+{% block header %}
+    <h1 class="ui header">Create Tag</h1>
+{% endblock %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb_for "codeapp:tag_update" %}
+        <i class="glyphicon glyphicon-plus"></i> Update tag
+    {% endbreadcrumb_for %}
+{% endblock %}
+
+{% block content %}
+    This is the create page
+
+            {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Update"/>
+            </form>
+
+{% endblock %}
