@@ -10,6 +10,7 @@ from users.models import User
 class Tag(models.Model):
     title = models.CharField(max_length=50, blank=False)
     owner = models.ForeignKey(User, related_name='owned_tags', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
         return self.title
