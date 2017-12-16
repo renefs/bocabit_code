@@ -13,8 +13,6 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-from codeproject import config
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
@@ -24,9 +22,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'gj=s&5+4z3_-1l9li-d52mdybk6r)vct@!-%vzm_-fo((*er3d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config.DEBUG
+DEBUG = True
 
-ALLOWED_HOSTS = config.ALLOWED_HOSTS
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -66,8 +64,8 @@ SOCIAL_AUTH_PIPELINE = (
     'codeproject.pipeline.get_avatar'
 )
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config.SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "1234"
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "1234"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -150,7 +148,7 @@ LOGGING = {
         'file': {
             'level': 'WARNING',
             'class': 'logging.FileHandler',
-            'filename': config.LOG_DEBUG_PATH,
+            'filename': "debug.log",
             'formatter': 'verbose'
         },
     },
@@ -187,7 +185,7 @@ STATIC_URL = '/static/'
 
 ASSETS_ROOT = 'codeapp'
 ASSETS_URL = ''
-STATIC_ROOT = config.STATIC_ROOT
+STATIC_ROOT = '../static'
 
 AUTH_USER_MODEL = 'users.User'
 
