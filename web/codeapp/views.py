@@ -11,14 +11,27 @@ from codeapp.models import Code, Snippet, Tag
 logger = logging.getLogger('webapp.codeapp')
 
 
+class AppContextMixin(LoginRequiredMixin, ContextMixin):
+    context_type = None
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['active'] = self.context_type
+        return context
+
+
 #
 # CODE
 #
-class CodeContextMixin(LoginRequiredMixin, ContextMixin):
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['active'] = 'code'
-        return context
+class CodeContextMixin(AppContextMixin):
+    context_type = "code"
+
+
+#
+# TAG
+#
+class TagContextMixin(AppContextMixin):
+    CONTEXT_TYPE = "tag"
 
 
 class CodeIndexView(generic.ListView, CodeContextMixin):
@@ -121,17 +134,6 @@ class SnippetUpdateView(generic.UpdateView, SnippetContextMixin):
     model = Snippet
     fields = ['title', 'language', 'text']
     template_name = 'snippet/snippet_form_update.html'
-
-
-#
-# TAG
-#
-class TagContextMixin(LoginRequiredMixin, ContextMixin):
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['active'] = 'tag'
-        return context
-
 
 class TagIndexView(generic.ListView, TagContextMixin):
     # Login mixin
