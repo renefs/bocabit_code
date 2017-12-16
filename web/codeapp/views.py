@@ -51,11 +51,7 @@ class CodeIndexView(generic.ListView, CodeContextMixin):
         return Code.objects.filter(owner=self.request.user)
 
 
-class CodeCreateView(generic.CreateView, CodeContextMixin):
-    model = Code
-    fields = ['title', 'description', 'tags']
-    success_url = reverse_lazy('codeapp:code_list')
-    template_name = 'code/code_form.html'
+class AppCreateView(generic.CreateView):
 
     def __init__(self, **kwargs):
         self.object = None
@@ -72,7 +68,14 @@ class CodeCreateView(generic.CreateView, CodeContextMixin):
 
         self.object.save()
 
-        return super(CodeCreateView, self).form_valid(form)
+        return super(AppCreateView, self).form_valid(form)
+
+
+class CodeCreateView(AppCreateView, CodeContextMixin):
+    model = Code
+    fields = ['title', 'description', 'tags']
+    success_url = reverse_lazy('codeapp:code_list')
+    template_name = 'code/code_form.html'
 
 
 class CodeDetailView(generic.DetailView, CodeContextMixin):
@@ -151,28 +154,11 @@ class TagIndexView(generic.ListView, TagContextMixin):
         return Tag.objects.filter(owner=self.request.user)
 
 
-class TagCreateView(generic.CreateView, TagContextMixin):
+class TagCreateView(AppCreateView, TagContextMixin):
     model = Tag
     fields = ['title']
     success_url = reverse_lazy('codeapp:tag_list')
     template_name = 'tag/tag_form.html'
-
-    def __init__(self, **kwargs):
-        self.object = None
-        super().__init__(**kwargs)
-
-    def form_valid(self, form, **kwargs):
-        logger.debug("Form is valid")
-
-        self.object = form.save(commit=False)
-        self.object.owner = self.request.user
-
-        form_data = form.cleaned_data
-        logger.debug(form_data)
-
-        self.object.save()
-
-        return super(TagCreateView, self).form_valid(form)
 
 
 class TagDetailView(generic.DetailView, TagContextMixin):
