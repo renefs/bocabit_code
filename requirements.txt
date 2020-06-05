@@ -2,7 +2,7 @@ certifi==2017.7.27.1
 chardet==3.0.4
 cssmin==0.2.0
 defusedxml==0.5.0
-Django==2.2.10
+Django==2.2.13
 django-assets==0.12
 django-bootstrap-breadcrumbs==0.8.2
 django-formtools==2.1
